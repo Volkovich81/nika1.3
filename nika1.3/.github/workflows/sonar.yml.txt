@@ -21,3 +21,6 @@ jobs:
           projectKey: Volkovich81_nika1.3
           organization: Volkovich81
           token: ${{ secrets.SONAR_TOKEN }}
+          args: >
+           -Dsonar.sources=main-cpp
+           -Dsonar.language=c++
