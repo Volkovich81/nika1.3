@@ -28,12 +28,12 @@ jobs:
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         with:
-          projectKey: Volkovich81_nika1.3
+           projectKey: Volkovich81_nika1.3
           organization: Volkovich81
           token: ${{ secrets.SONAR_TOKEN }}
           args: >
             -Dsonar.sources=main-cpp
             -Dsonar.language=c++
             -Dsonar.cfamily.build-wrapper-output=bw-output
-          
          
+                   
