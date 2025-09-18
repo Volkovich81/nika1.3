@@ -6,9 +6,10 @@
 
 class Matrix {
 private:
-    int** data;
-    int rows;
-    int cols;
+    
+    int rows = 0;
+    int cols = 0;
+    int** data = nullptr;
 
     void freeMemory();
 

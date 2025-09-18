@@ -1,4 +1,5 @@
 #include "Matrix.h"
+#include <stdexcept>
 
 void Matrix::freeMemory() {
     if (data) {
