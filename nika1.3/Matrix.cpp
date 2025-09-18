@@ -2,7 +2,7 @@
 #include <stdexcept>
 
 void Matrix::freeMemory() {
-    if (data) {
+    if (data != nullptr) {
         for (int i = 0; i < rows; ++i) {
             delete[] data[i];
         }
