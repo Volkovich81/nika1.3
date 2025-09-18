@@ -32,7 +32,10 @@ void Matrix::inputData() const {
         for (int j = 0; j < cols; ++j) {
             std::cout << "Элемент [" << i << "][" << j << "]: ";
             if (!(std::cin >> data[i][j])) {
-                throw std::invalid_argument("Размеры матрицы должны быть положительными");
+                std::cerr << "Ошибка ввода элемента [" << i << "][" << j << "]\n";
+                std::cin.clear();
+                std::cin.ignore(10000, '\n');
+                return; 
             }
         }
     }
