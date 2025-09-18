@@ -11,7 +11,7 @@ void Matrix::freeMemory() {
     }
 }
 
-Matrix::Matrix(int rows, int cols) : rows(rows), cols(cols), data(nullptr) {
+Matrix::Matrix(int rows, int cols) : rows(rows), cols(cols) {
     if (rows <= 0 || cols <= 0) {
         throw std::invalid_argument("Размеры матрицы должны быть положительными");
     }
@@ -26,7 +26,7 @@ Matrix::~Matrix() {
     freeMemory();
 }
 
-void Matrix::inputData() {
+void Matrix::inputData() const {
     std::cout << "Введите элементы матрицы (" << rows << "x" << cols << "):\n";
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
@@ -48,7 +48,7 @@ void Matrix::print() const {
     }
 }
 
-void Matrix::multiplyBy(int multiplier) {
+void Matrix::multiplyBy(int multiplier) const {
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
             data[i][j] *= multiplier;

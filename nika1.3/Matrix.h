@@ -20,9 +20,9 @@ public:
     Matrix(const Matrix&) = delete;
     Matrix& operator=(const Matrix&) = delete;
 
-    void inputData();              
+    void inputData() const;              
     void print() const;             
-    void multiplyBy(int multiplier); 
+    void multiplyBy(int multiplier) const; 
 };
 
 #endif  
