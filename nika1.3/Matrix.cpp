@@ -1,5 +1,5 @@
 #include "Matrix.h"
-#include <stdexcept>
+#include <iostream>
 
 void Matrix::freeMemory() {
     if (data != nullptr) {
@@ -11,14 +11,19 @@ void Matrix::freeMemory() {
     }
 }
 
-Matrix::Matrix(int rows, int cols) : rows(rows), cols(cols) {
-    if (rows <= 0 || cols <= 0) {
-        throw std::invalid_argument("Размеры матрицы должны быть положительными");
+Matrix::Matrix() : data(nullptr), rows(0), cols(0) {}
+
+Matrix::Matrix(int rows_, int cols_) : data(nullptr), rows(0), cols(0) {
+    if (rows_ <= 0 || cols_ <= 0) {
+        std::cerr << "Ошибка: размеры матрицы должны быть положительными. Создана пустая матрица.\n";
+        return;
     }
 
+    rows = rows_;
+    cols = cols_;
     data = new int* [rows];
     for (int i = 0; i < rows; ++i) {
-        data[i] = new int[cols] {0}; 
+        data[i] = new int[cols] {0};
     }
 }
 
@@ -26,7 +31,15 @@ Matrix::~Matrix() {
     freeMemory();
 }
 
+int Matrix::getRows() const { return rows; }
+int Matrix::getCols() const { return cols; }
+
 void Matrix::inputData() const {
+    if (data == nullptr) {
+        std::cerr << "Матрица не инициализирована для ввода.\n";
+        return;
+    }
+
     std::cout << "Введите элементы матрицы (" << rows << "x" << cols << "):\n";
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
@@ -35,13 +48,18 @@ void Matrix::inputData() const {
                 std::cerr << "Ошибка ввода элемента [" << i << "][" << j << "]\n";
                 std::cin.clear();
                 std::cin.ignore(10000, '\n');
-                return; 
+                return;
             }
         }
     }
 }
 
 void Matrix::print() const {
+    if (data == nullptr) {
+        std::cout << "Пустая матрица.\n";
+        return;
+    }
+
     std::cout << "Матрица (" << rows << "x" << cols << "):\n";
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
@@ -52,6 +70,11 @@ void Matrix::print() const {
 }
 
 void Matrix::multiplyBy(int multiplier) const {
+    if (data == nullptr) {
+        std::cerr << "Матрица не инициализирована для умножения.\n";
+        return;
+    }
+
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
             data[i][j] *= multiplier;

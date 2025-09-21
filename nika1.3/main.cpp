@@ -8,20 +8,26 @@ int inputPositiveInt(const std::string& prompt) {
     while (true) {
         std::cout << prompt;
         if (std::cin >> value && value > 0) {
+            std::cin.ignore(10000, '\n');
             return value;
         }
         std::cout << "Пожалуйста, введите положительное целое число.\n";
         std::cin.clear();
-        std::cin.ignore(32767, '\n');
+        std::cin.ignore(10000, '\n');
     }
 }
 
 int main() {
-    setlocale(LC_ALL, "Russian");
+    std::setlocale(LC_ALL, "Russian");
 
     int rows = inputPositiveInt("Введите количество строк: ");
     int cols = inputPositiveInt("Введите количество столбцов: ");
     Matrix matrix(rows, cols);
+
+    if (matrix.getRows() == 0 || matrix.getCols() == 0) {
+        std::cerr << "Невозможно продолжить: матрица не создана.\n";
+        return 1;
+    }
 
     bool running = true;
     while (running) {
@@ -33,7 +39,13 @@ int main() {
         std::cout << "Выберите действие: ";
 
         int choice;
-        std::cin >> choice;
+        if (!(std::cin >> choice)) {
+            std::cout << "Ошибка ввода. Попробуйте снова.\n";
+            std::cin.clear();
+            std::cin.ignore(10000, '\n');
+            continue;
+        }
+        std::cin.ignore(10000, '\n');
 
         switch (choice) {
         case 1:
